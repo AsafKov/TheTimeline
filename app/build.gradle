@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdk 30
+
+    defaultConfig {
+        applicationId "com.asafk.thetimeline"
+        minSdk 24
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+
+    // FireBase dependencies:
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:28.3.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.0'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.0'
+
+    implementation 'com.google.android.material:material:1.5.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+
+    // Android navigationUI
+    def nav_version = "2.3.5"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    //RxJava
+    def rxJavaVersion = "3.0.0"
+    implementation "io.reactivex.rxjava3:rxjava:${rxJavaVersion}"
+    implementation "io.reactivex.rxjava3:rxandroid:${rxJavaVersion}"
+
+    def work_version = "2.5.0"
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation 'com.google.code.gson:gson:2.8.5'
+}

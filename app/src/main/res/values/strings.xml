@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">TheTimeline</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">The Timeline</string>
+
+    <!-- fragment_sign_in -->
+    <string name="fragment_sign_in_email">Email Address</string>
+    <string name="fragment_sign_in_password">Password</string>
+    <string name="fragment_sign_in_with_email">Sign In</string>
+    <string name="fragment_sign_in_navigate_to_register">Don\'t have an account? Create one now!</string>
+
+    <!-- fragment_register -->
+    <string name="fragment_register_date_of_birth">Date of birth</string>
 </resources>

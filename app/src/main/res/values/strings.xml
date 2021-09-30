@@ -13,4 +13,13 @@
     <string name="fragment_register_confirm_password">Confirm password</string>
     <string name="fragment_register_create_user">Create User</string>
     <string name="fragment_register_navigate_to_sign_in">Already have an account?</string>
+
+    <!-- fragment_new_user -->
+    <string name="fragment_new_user_headline">Welcome,\nto your Timeline</string>
+    <string name="fragment_new_user_sub_headline">Tell us about yourself</string>
+    <string name="fragment_new_user_sub_headline_description">All the information gathered here will not be visible to other users,
+            and will only be used to gather statistics.</string>
+    <string name="fragment_new_user_date_picker_hint">Date of birth</string>
+    <string name="fragment_new_user_country_hint">Country</string>
+
 </resources>

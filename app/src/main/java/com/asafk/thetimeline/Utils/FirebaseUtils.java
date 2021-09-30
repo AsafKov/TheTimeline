@@ -13,25 +13,41 @@ public class FirebaseUtils {
 
     public static final String TAG = FirebaseUtils.class.getSimpleName();
 
-    public interface FirebaseRegisterListener{
-        void onRegisterComplete(boolean isSuccessful);
+    public interface FirebaseAuthenticationListener {
+        void onAuthenticationComplete(boolean isSuccessful);
     }
 
-    public static void signInWithEmailAndPassword(@NonNull String email, @NonNull String password,
-                                                  @NonNull FirebaseRegisterListener listener){
+    public static void registerWithEmailAndPassword(@NonNull String email, @NonNull String password,
+                                                  @NonNull FirebaseAuthenticationListener listener){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
-                listener.onRegisterComplete(true);
+                listener.onAuthenticationComplete(true);
            } else {
-               Log.e(TAG, "signInWithEmailAndPassword: Register failed with exception: " + task.getException().getMessage());
-               listener.onRegisterComplete(false);
+               Log.e(TAG, "signInWithEmailAndPassword: Register failed with exception: "
+                       + task.getException().getMessage());
+               listener.onAuthenticationComplete(false);
            }
         });
     }
 
-    public static void signInWithGmail(@NonNull FirebaseRegisterListener listener){
+    public static void signInWithEmailAndPassword(@NonNull String email, @NonNull String password,
+                                                  @NonNull FirebaseAuthenticationListener listener){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+           if(task.isSuccessful()){
+               listener.onAuthenticationComplete(true);
+           } else {
+               Log.e(TAG, "signInWithEmailAndPassword: sign in failed with exception: "
+                       + task.getException().getMessage());
+               listener.onAuthenticationComplete(false);
+           }
+        });
+    }
+
+    public static void signInWithGmail(@NonNull FirebaseAuthenticationListener listener){
 
     }
 }

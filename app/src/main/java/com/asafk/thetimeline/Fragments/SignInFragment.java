@@ -7,18 +7,24 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.asafk.thetimeline.R;
 import com.asafk.thetimeline.Utils.FirebaseUtils;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
 
 public class SignInFragment extends TimelineFragment{
 
     public static final String TAG = SignInFragment.class.getSimpleName();
 
     private TextInputEditText mEmailInput, mPasswordInput;
+
+    private NavController mNavController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,12 +40,22 @@ public class SignInFragment extends TimelineFragment{
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        mNavController = Navigation.findNavController(requireActivity(),
+                R.id.activity_authentication_nav_host_fragment);
+    }
+
+    @Override
     void initViews(@NonNull View layout) {
         MaterialButton signInWithEmail = layout.findViewById(R.id.fragment_sign_in_with_email);
         SignInButton signInWithGmail = layout.findViewById(R.id.fragment_sign_in_gmail);
+        MaterialTextView navigateToRegisterFragment = layout.findViewById(R.id.fragment_sign_in_navigate_to_register);
 
         signInWithEmail.setOnClickListener(this);
         signInWithGmail.setOnClickListener(this);
+        navigateToRegisterFragment.setOnClickListener(this);
 
         mEmailInput = layout.findViewById(R.id.fragment_sign_in_email_input);
         mPasswordInput = layout.findViewById(R.id.fragment_sign_in_password_input);
@@ -66,6 +82,11 @@ public class SignInFragment extends TimelineFragment{
 
                 });
                 break;
+            }
+
+            case R.id.fragment_sign_in_navigate_to_register: {
+                NavDirections action = SignInFragmentDirections.actionSignInFragmentToRegisterFragment();
+                mNavController.navigate(action);
             }
         }
     }

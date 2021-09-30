@@ -22,5 +22,6 @@
     <string name="fragment_new_user_date_picker_hint">Date of birth</string>
     <string name="fragment_new_user_date_picker_title">Select date</string>
     <string name="fragment_new_user_country_hint">Country</string>
+    <string name="fragment_new_user_continue">Continue</string>
 
 </resources>

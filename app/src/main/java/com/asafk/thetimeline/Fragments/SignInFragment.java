@@ -70,11 +70,19 @@ public class SignInFragment extends TimelineFragment{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fragment_sign_in_with_email: {
-                FirebaseUtils.signInWithEmailAndPassword(mEmailInput.getText().toString(),
-                        mPasswordInput.getText().toString(), isSuccessful -> {
-                            NavDirections action = SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
-                            mNavController.navigate(action);
-                        });
+                //TODO: remove
+                if(mEmailInput.getText().toString().equals("admin")){
+                    TimelineFragment.hideKeyboard(requireActivity());
+                    NavDirections action = SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
+                    mNavController.navigate(action);
+                } else {
+                    FirebaseUtils.signInWithEmailAndPassword(mEmailInput.getText().toString(),
+                            mPasswordInput.getText().toString(), isSuccessful -> {
+                                TimelineFragment.hideKeyboard(requireActivity());
+                                NavDirections action = SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
+                                mNavController.navigate(action);
+                            });
+                }
                 break;
             }
 

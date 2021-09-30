@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/app_headline"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/fragment_new_user_headline_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_new_user_headline_guideline"
@@ -67,16 +69,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_new_user_date_picker"
+        android:id="@+id/fragment_new_user_date_picker_frame"
         style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/fragment_new_user_date_picker_hint"
         android:minWidth="240dp"
-        app:endIconDrawable="@drawable/ic_date_picker"
-        app:endIconMode="custom"
-        app:endIconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -88,15 +87,32 @@
             android:id="@+id/fragment_new_user_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
             android:singleLine="true"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_new_user_date_picker"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/fragment_new_user_date_picker_hint"
+        app:backgroundTint="@color/transparent"
+        app:icon="@drawable/ic_date_picker"
+        app:iconGravity="end"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_new_user_date_picker_frame"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_new_user_date_picker_frame"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/fragment_new_user_date_picker_frame"
+        app:layout_constraintTop_toTopOf="@+id/fragment_new_user_date_picker_frame"
+        app:layout_constraintVertical_bias="0.5" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fragment_new_user_country_frame"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -106,17 +122,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/fragment_new_user_sub_headline"
-        app:layout_constraintTop_toBottomOf="@id/fragment_new_user_date_picker"
+        app:layout_constraintTop_toBottomOf="@id/fragment_new_user_date_picker_frame"
         app:layout_constraintVertical_bias="0.0">
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        <AutoCompleteTextView
             android:id="@+id/fragment_new_user_country_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="textAutoComplete"
+            android:completionThreshold="3"
+            android:dropDownVerticalOffset="124dp"
+            android:padding="16dp"
             android:singleLine="true"
+            android:textSize="16sp"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,12 +155,26 @@
             android:id="@+id/fragment_new_user_gender_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textAutoComplete"
-            android:focusableInTouchMode="false"
             android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textAutoComplete"
             android:singleLine="true"
             android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_new_user_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/fragment_new_user_continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/fragment_new_user_gender_frame"
+        app:layout_constraintTop_toBottomOf="@id/fragment_new_user_gender_frame"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

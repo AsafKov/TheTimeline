@@ -5,6 +5,10 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.asafk.thetimeline.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -19,15 +24,18 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Locale;
 
 public class NewUserFragment extends TimelineFragment{
 
     public static final String TAG = NewUserFragment.class.getSimpleName();
 
     private TextInputEditText mDate;
-    private MaterialAutoCompleteTextView mCountryInput, mGender;
+    private AutoCompleteTextView mCountryInput;
 
     private NavController mNavController;
 
@@ -54,9 +62,18 @@ public class NewUserFragment extends TimelineFragment{
     @Override
     void initViews(@NonNull View layout) {
         mDate = layout.findViewById(R.id.fragment_new_user_date);
+        MaterialButton submit = layout.findViewById(R.id.fragment_new_user_submit);
+        MaterialButton datePicker = layout.findViewById(R.id.fragment_new_user_date_picker);
 
+        datePicker.setOnClickListener(this);
+        submit.setOnClickListener(this);
         mDate.setInputType(InputType.TYPE_NULL);
-        mDate.setOnClickListener(this);
+
+        mCountryInput = layout.findViewById(R.id.fragment_new_user_country_input);
+        mCountryInput.clearFocus();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, listOfCountries());
+        mCountryInput.setAdapter(adapter);
     }
 
     @Override
@@ -67,7 +84,7 @@ public class NewUserFragment extends TimelineFragment{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.fragment_new_user_date: {
+            case R.id.fragment_new_user_date_picker: {
                 MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().
                         setTitleText(R.string.fragment_new_user_date_picker_title).build();
                 datePicker.addOnPositiveButtonClickListener(selection -> {
@@ -78,5 +95,18 @@ public class NewUserFragment extends TimelineFragment{
                 break;
             }
         }
+    }
+
+    private ArrayList<String> listOfCountries() {
+        Locale[] locales = Locale.getAvailableLocales();
+        ArrayList<String> countries = new ArrayList<>();
+        for (Locale locale : locales) {
+            String country = locale.getDisplayCountry();
+            if (country.trim().length() > 0 && !countries.contains(country)) {
+                countries.add(country);
+            }
+        }
+        Collections.sort(countries);
+        return countries;
     }
 }

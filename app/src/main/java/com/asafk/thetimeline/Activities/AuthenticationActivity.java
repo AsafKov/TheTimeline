@@ -3,6 +3,7 @@ package com.asafk.thetimeline.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.asafk.thetimeline.R;
 

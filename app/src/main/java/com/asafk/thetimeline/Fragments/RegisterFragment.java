@@ -43,7 +43,7 @@ public class RegisterFragment extends TimelineFragment {
     public void onStart() {
         super.onStart();
 
-        mNavController = Navigation.findNavController(requireActivity(), R.id.activity_authentication_nav_host_fragment);
+        mNavController = Navigation.findNavController(requireActivity(), R.id.auth_host_fragment);
     }
 
     @Override
@@ -71,7 +71,8 @@ public class RegisterFragment extends TimelineFragment {
                 if(inputValidation()){
                     FirebaseUtils.registerWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(),
                             isSuccessful -> {
-
+                        NavDirections action = RegisterFragmentDirections.actionRegisterFragmentToNewUserFragment();
+                        mNavController.navigate(action);
                     });
                 } else {
                   // TODO: Notify on un-matching passwords

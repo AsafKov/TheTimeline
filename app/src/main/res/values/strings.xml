@@ -20,6 +20,7 @@
     <string name="fragment_new_user_sub_headline_description">All the information gathered here will not be visible to other users,
             and will only be used to gather statistics.</string>
     <string name="fragment_new_user_date_picker_hint">Date of birth</string>
+    <string name="fragment_new_user_date_picker_title">Select date</string>
     <string name="fragment_new_user_country_hint">Country</string>
 
 </resources>

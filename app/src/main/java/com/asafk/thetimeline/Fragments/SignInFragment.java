@@ -44,7 +44,7 @@ public class SignInFragment extends TimelineFragment{
         super.onStart();
 
         mNavController = Navigation.findNavController(requireActivity(),
-                R.id.activity_authentication_nav_host_fragment);
+                R.id.auth_host_fragment);
     }
 
     @Override
@@ -72,7 +72,8 @@ public class SignInFragment extends TimelineFragment{
             case R.id.fragment_sign_in_with_email: {
                 FirebaseUtils.signInWithEmailAndPassword(mEmailInput.getText().toString(),
                         mPasswordInput.getText().toString(), isSuccessful -> {
-
+                            NavDirections action = SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
+                            mNavController.navigate(action);
                         });
                 break;
             }

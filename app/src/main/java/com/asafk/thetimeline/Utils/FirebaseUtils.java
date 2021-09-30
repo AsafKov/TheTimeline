@@ -13,19 +13,20 @@ public class FirebaseUtils {
 
     public static final String TAG = FirebaseUtils.class.getSimpleName();
 
+    private static final FirebaseAuth auth = FirebaseAuth.getInstance();
+
     public interface FirebaseAuthenticationListener {
         void onAuthenticationComplete(boolean isSuccessful);
     }
 
     public static void registerWithEmailAndPassword(@NonNull String email, @NonNull String password,
                                                   @NonNull FirebaseAuthenticationListener listener){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
                 listener.onAuthenticationComplete(true);
            } else {
-               Log.e(TAG, "signInWithEmailAndPassword: Register failed with exception: "
+               Log.d(TAG, "signInWithEmailAndPassword: Register failed with exception: "
                        + task.getException().getMessage());
                listener.onAuthenticationComplete(false);
            }
@@ -34,13 +35,11 @@ public class FirebaseUtils {
 
     public static void signInWithEmailAndPassword(@NonNull String email, @NonNull String password,
                                                   @NonNull FirebaseAuthenticationListener listener){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
                listener.onAuthenticationComplete(true);
            } else {
-               Log.e(TAG, "signInWithEmailAndPassword: sign in failed with exception: "
+               Log.d(TAG, "signInWithEmailAndPassword: sign in failed with exception: "
                        + task.getException().getMessage());
                listener.onAuthenticationComplete(false);
            }

@@ -71,7 +71,7 @@
         style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/fragment_new_user_date_picker_hint"
         android:minWidth="240dp"
         app:endIconDrawable="@drawable/ic_date_picker"
@@ -88,10 +88,9 @@
             android:id="@+id/fragment_new_user_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:singleLine="true"
-            android:textAlignment="center"
-            android:clickable="false"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,9 +113,10 @@
             android:id="@+id/fragment_new_user_country_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:inputType="textAutoComplete"
             android:singleLine="true"
-            android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,6 +139,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textAutoComplete"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             android:singleLine="true"
             android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />

@@ -54,6 +54,7 @@ public class FirebaseUtils {
                                                   @NonNull FirebaseAuthenticationListener listener){
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
+               FirebaseUser user = task.getResult().getUser();
                listener.onAuthenticationComplete(true);
            } else {
                Log.d(TAG, "signInWithEmailAndPassword: sign in failed with exception: "

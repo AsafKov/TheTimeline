@@ -44,4 +44,7 @@
         <item>Atheist</item>
     </string-array>
 
+    <!-- fragment_splash -->
+    <string name="fragment_splash_loading_message">Loading user data...</string>
+
 </resources>

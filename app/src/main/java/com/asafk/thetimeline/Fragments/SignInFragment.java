@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +17,7 @@ import com.asafk.thetimeline.Utils.FirebaseUtils;
 import com.asafk.thetimeline.Utils.LocalDataUtils;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +27,7 @@ public class SignInFragment extends TimelineFragment {
     public static final String TAG = SignInFragment.class.getSimpleName();
 
     private TextInputEditText mEmailInput, mPasswordInput;
-    private ProgressBar mProgressBar;
+    private CircularProgressIndicator mProgressBar;
 
     private NavController mNavController;
 
@@ -54,7 +54,7 @@ public class SignInFragment extends TimelineFragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser != null){
             User user = LocalDataUtils.getInstance().readUserData();
-            NavDirections action = (user == null || !user.getId().equals(currentUser))?
+            NavDirections action = (user == null || !user.getId().equals(currentUser.getUid()))?
                     SignInFragmentDirections.actionSignInFragmentToNewUserFragment()
                     : SignInFragmentDirections.actionSignInFragmentToSplashFragment();
             mNavController.navigate(action);

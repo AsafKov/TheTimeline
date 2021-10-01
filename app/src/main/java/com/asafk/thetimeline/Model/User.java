@@ -83,9 +83,9 @@ public class User {
     }
 
     public enum Gender{
-        MALE(11),
-        FEMALE(12),
-        NONBINARY(13);
+        MALE(101),
+        FEMALE(102),
+        NONBINARY(103);
 
         public final int value;
         public static Gender fromInt(int value) {

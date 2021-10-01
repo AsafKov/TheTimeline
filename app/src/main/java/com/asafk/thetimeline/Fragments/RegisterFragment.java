@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import com.asafk.thetimeline.R;
 import com.asafk.thetimeline.Utils.FirebaseUtils;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterFragment extends TimelineFragment {
@@ -21,6 +22,7 @@ public class RegisterFragment extends TimelineFragment {
     public static final String TAG = RegisterFragment.class.getSimpleName();
 
     private TextInputEditText mEmail, mPassword, mPasswordConfirmation;
+    private CircularProgressIndicator mProgressBar;
 
     private NavController mNavController;
 
@@ -47,15 +49,16 @@ public class RegisterFragment extends TimelineFragment {
 
     @Override
     void initViews(@NonNull View layout) {
+        mEmail = layout.findViewById(R.id.fragment_register_email_input);
+        mPassword = layout.findViewById(R.id.fragment_register_confirm_password_input);
+        mPasswordConfirmation = layout.findViewById(R.id.fragment_register_confirm_password_input);
+        mProgressBar = layout.findViewById(R.id.fragment_register_progressbar);
+
         MaterialButton createUser = layout.findViewById(R.id.fragment_register_create_user);
         MaterialButton navigateToSignIn = layout.findViewById(R.id.fragment_register_navigate_to_sign_in);
 
         createUser.setOnClickListener(this);
         navigateToSignIn.setOnClickListener(this);
-
-        mEmail = layout.findViewById(R.id.fragment_register_email_input);
-        mPassword = layout.findViewById(R.id.fragment_register_confirm_password_input);
-        mPasswordConfirmation = layout.findViewById(R.id.fragment_register_confirm_password_input);
     }
 
     @Override
@@ -67,6 +70,8 @@ public class RegisterFragment extends TimelineFragment {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fragment_register_create_user: {
+                TimelineFragment.hideKeyboard(requireActivity());
+                mProgressBar.setVisibility(View.VISIBLE);
                 TimelineFragment.hideKeyboard(requireActivity());
                 if(inputValidation()){
                     FirebaseUtils.registerWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(),

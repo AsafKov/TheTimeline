@@ -120,17 +120,20 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_sign_in_navigate_to_register"
         app:layout_constraintVertical_bias="0.25" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/fragment_sign_in_progressbar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:visibility="gone"
+        android:indeterminate="true"
+        app:indicatorColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/fragment_sign_in_navigate_to_register"
         app:layout_constraintEnd_toEndOf="@+id/fragment_sign_in_password_frame"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fragment_sign_in_with_email"
         app:layout_constraintTop_toTopOf="@+id/fragment_sign_in_with_email"
+        app:trackColor="@color/design_default_color_primary"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

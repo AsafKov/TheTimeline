@@ -12,12 +12,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.asafk.thetimeline.Model.User;
 import com.asafk.thetimeline.R;
 import com.asafk.thetimeline.Utils.FirebaseUtils;
+import com.asafk.thetimeline.Utils.LocalDataUtils;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInFragment extends TimelineFragment {
 
@@ -47,6 +50,15 @@ public class SignInFragment extends TimelineFragment {
 
         mNavController = Navigation.findNavController(requireActivity(),
                 R.id.auth_host_fragment);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser != null){
+            User user = LocalDataUtils.getInstance().readUserData();
+            NavDirections action = (user == null || !user.getId().equals(currentUser))?
+                    SignInFragmentDirections.actionSignInFragmentToNewUserFragment()
+                    : SignInFragmentDirections.actionSignInFragmentToSplashFragment();
+            mNavController.navigate(action);
+        }
     }
 
     @Override
@@ -57,7 +69,7 @@ public class SignInFragment extends TimelineFragment {
 
         MaterialButton signInWithEmail = layout.findViewById(R.id.fragment_sign_in_with_email);
         SignInButton signInWithGmail = layout.findViewById(R.id.fragment_sign_in_gmail);
-        MaterialTextView navigateToRegisterFragment = layout.findViewById(R.id.fragment_sign_in_navigate_to_register);
+        MaterialButton navigateToRegisterFragment = layout.findViewById(R.id.fragment_sign_in_navigate_to_register);
 
         signInWithEmail.setOnClickListener(this);
         signInWithGmail.setOnClickListener(this);
@@ -73,6 +85,7 @@ public class SignInFragment extends TimelineFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_sign_in_with_email: {
+                TimelineFragment.hideKeyboard(requireActivity());
                 mProgressBar.setVisibility(View.VISIBLE);
                 final String email = mEmailInput.getText().toString();
                 final String password = mPasswordInput.getText().toString();
@@ -81,25 +94,12 @@ public class SignInFragment extends TimelineFragment {
                     return;
                 }
                 FirebaseUtils.signInWithEmailAndPassword(email, password, isSuccessful -> {
-                    TimelineFragment.hideKeyboard(requireActivity());
                     if (!isSuccessful) {
                         mProgressBar.setVisibility(View.GONE);
                         // TODO: Handle failure
                         return;
                     }
-                    FirebaseUtils.isRegisterProcessComplete(new FirebaseUtils.RegisterProcessCompleteListener() {
-                        @Override
-                        public void isRegisterComplete(boolean isComplete) {
-                            NavDirections action = isComplete? SignInFragmentDirections.actionSignInFragmentToSplashFragment()
-                                    : SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
-                            mNavController.navigate(action);
-                        }
-
-                        @Override
-                        public void onDatabaseError(int errorCode) {
-                            //TODO: Handle database error
-                        }
-                    });
+                    proceedWithAuthentication();
                 });
                 break;
             }
@@ -116,6 +116,22 @@ public class SignInFragment extends TimelineFragment {
                 mNavController.navigate(action);
             }
         }
+    }
+
+    private void proceedWithAuthentication(){
+        FirebaseUtils.isRegisterProcessComplete(new FirebaseUtils.RegisterProcessCompleteListener() {
+            @Override
+            public void isRegisterComplete(boolean isComplete) {
+                NavDirections action = isComplete? SignInFragmentDirections.actionSignInFragmentToSplashFragment()
+                        : SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
+                mNavController.navigate(action);
+            }
+
+            @Override
+            public void onDatabaseError(int errorCode) {
+                //TODO: Handle database error
+            }
+        });
     }
 
     private boolean isInputValid(final String email, final String password) {

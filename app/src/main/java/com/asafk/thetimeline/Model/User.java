@@ -3,13 +3,15 @@ import com.google.firebase.database.Exclude;
 
 public class User {
 
+    private String id;
     private long birthday;
     private String country;
-    int gender, orientation, faith;
+    private int gender, orientation, faith;
 
     public User() { }
 
-    public User(long birthday, String country, Gender gender, Orientation orientation, Faith faith) {
+    public User(String id, long birthday, String country, Gender gender, Orientation orientation, Faith faith) {
+        this.id = id;
         this.birthday = birthday;
         this.country = country;
         this.gender = gender.value;
@@ -55,6 +57,14 @@ public class User {
 
     public void setFaith(int faith) {
         this.faith = faith;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Exclude

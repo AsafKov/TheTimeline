@@ -6,12 +6,12 @@
     <string name="auth_activity_password">Password</string>
 
     <!-- fragment_sign_in -->
-    <string name="fragment_sign_in_with_email">Sign In</string>
+    <string name="fragment_sign_in_with_email">SIGN IN</string>
     <string name="fragment_sign_in_navigate_to_register">Don\'t have an account? Create one now!</string>
 
     <!-- fragment_register -->
     <string name="fragment_register_confirm_password">Confirm password</string>
-    <string name="fragment_register_create_user">Create User</string>
+    <string name="fragment_register_create_user">CREATE USER</string>
     <string name="fragment_register_navigate_to_sign_in">Already have an account?</string>
 
     <!-- fragment_new_user -->
@@ -25,7 +25,8 @@
     <string name="fragment_new_user_gender_hint">Gender</string>
     <string name="fragment_new_user_sexuality_hint">Sexual orientation</string>
     <string name="fragment_new_user_faith_hint">Faith</string>
-    <string name="fragment_new_user_continue">Continue</string>
+    <string name="fragment_new_user_continue">CONTINUE</string>
+    <string name="fragment_new_user_switch_account">SWITCH ACCOUNT</string>
     <string-array name="fragment_new_user_gender">
         <item>Male</item>
         <item>Female</item>

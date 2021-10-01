@@ -4,9 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.asafk.thetimeline.Conventions.FirebaseConventions;
+import com.asafk.thetimeline.Conventions.StorageConventions;
 import com.asafk.thetimeline.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +40,8 @@ public class FirebaseUtils {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
-                listener.onAuthenticationComplete(true);
+               FirebaseUser user = task.getResult().getUser();
+               listener.onAuthenticationComplete(true);
            } else {
                Log.d(TAG, "signInWithEmailAndPassword: Register failed with exception: "
                        + task.getException().getMessage());
@@ -62,7 +64,7 @@ public class FirebaseUtils {
     }
 
     public static void loadUserData(@NonNull LoadUserDataListener listener){
-        final DatabaseReference users = database.getReference(FirebaseConventions.Users.SECTION_NAME);
+        final DatabaseReference users = database.getReference(StorageConventions.Users.SECTION_NAME);
         final String userId = auth.getCurrentUser().getUid();
 
         users.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,7 +82,7 @@ public class FirebaseUtils {
     }
 
     public static void isRegisterProcessComplete(@NonNull RegisterProcessCompleteListener listener){
-        final DatabaseReference users = database.getReference(FirebaseConventions.Users.SECTION_NAME);
+        final DatabaseReference users = database.getReference(StorageConventions.Users.SECTION_NAME);
         final String userId = auth.getCurrentUser().getUid();
 
         users.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,7 +99,7 @@ public class FirebaseUtils {
     }
 
     public static void writeUserToDatabase(@NonNull User user, @NonNull FirebaseAuthenticationListener listener){
-        final DatabaseReference users = database.getReference(FirebaseConventions.Users.SECTION_NAME);
+        final DatabaseReference users = database.getReference(StorageConventions.Users.SECTION_NAME);
         final String userId = auth.getCurrentUser().getUid();
 
         users.child(userId).setValue(user).addOnCompleteListener(task -> {

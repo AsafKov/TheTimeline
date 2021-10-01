@@ -17,10 +17,12 @@ import androidx.navigation.Navigation;
 import com.asafk.thetimeline.Model.User;
 import com.asafk.thetimeline.R;
 import com.asafk.thetimeline.Utils.FirebaseUtils;
+import com.asafk.thetimeline.Utils.LocalDataUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,14 +72,20 @@ public class NewUserFragment extends TimelineFragment{
         mFaithInput = layout.findViewById(R.id.fragment_new_user_faith_input);
 
         MaterialButton submit = layout.findViewById(R.id.fragment_new_user_submit);
+        MaterialButton switchAccount = layout.findViewById(R.id.fragment_new_user_switch_account);
+
         TextInputLayout datePicker = layout.findViewById(R.id.fragment_new_user_date_picker);
 
         submit.setOnClickListener(this);
+        switchAccount.setOnClickListener(this);
 
         mCountryInput.clearFocus();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, listOfCountries());
         mCountryInput.setAdapter(adapter);
+        mCountryInput.setOnItemClickListener((adapterView, view, i, l) -> {
+            TimelineFragment.hideKeyboard(requireActivity());
+        });
 
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line,
                 getResources().getStringArray(R.array.fragment_new_user_gender));
@@ -115,16 +123,18 @@ public class NewUserFragment extends TimelineFragment{
         switch (view.getId()){
             case R.id.fragment_new_user_submit: {
                 if(isInputValid()){
+                    final String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     final String gender = mGenderInput.getText().toString();
                     final String orientation = mOrientationInput.getText().toString();
                     final String faith = mFaithInput.getText().toString();
                     final String country = mCountryInput.getText().toString();
-                    final User user = new User(mSelectedDate, country, User.Gender.fromString(gender),
+                    final User user = new User(id, mSelectedDate, country, User.Gender.fromString(gender),
                             User.Orientation.fromString(orientation),
                             User.Faith.fromString(faith));
 
                     FirebaseUtils.writeUserToDatabase(user, isSuccessful -> {
                         if(isSuccessful){
+                            LocalDataUtils.getInstance().saveUser(user);
                             NavDirections action = NewUserFragmentDirections.actionNewUserFragmentToSplashFragment();
                             mNavController.navigate(action);
                         } else {
@@ -132,6 +142,13 @@ public class NewUserFragment extends TimelineFragment{
                         }
                     });
                 }
+                break;
+            }
+
+            case R.id.fragment_new_user_switch_account: {
+                FirebaseAuth.getInstance().signOut();
+                NavDirections action = NewUserFragmentDirections.actionNewUserFragmentToSignInFragment();
+                mNavController.navigate(action);
             }
         }
     }

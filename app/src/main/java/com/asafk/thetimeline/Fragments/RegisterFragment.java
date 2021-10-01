@@ -15,7 +15,6 @@ import com.asafk.thetimeline.R;
 import com.asafk.thetimeline.Utils.FirebaseUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textview.MaterialTextView;
 
 public class RegisterFragment extends TimelineFragment {
 
@@ -49,7 +48,7 @@ public class RegisterFragment extends TimelineFragment {
     @Override
     void initViews(@NonNull View layout) {
         MaterialButton createUser = layout.findViewById(R.id.fragment_register_create_user);
-        MaterialTextView navigateToSignIn = layout.findViewById(R.id.fragment_register_navigate_to_sign_in);
+        MaterialButton navigateToSignIn = layout.findViewById(R.id.fragment_register_navigate_to_sign_in);
 
         createUser.setOnClickListener(this);
         navigateToSignIn.setOnClickListener(this);
@@ -68,6 +67,7 @@ public class RegisterFragment extends TimelineFragment {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fragment_register_create_user: {
+                TimelineFragment.hideKeyboard(requireActivity());
                 if(inputValidation()){
                     FirebaseUtils.registerWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(),
                             isSuccessful -> {

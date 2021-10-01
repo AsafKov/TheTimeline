@@ -85,8 +85,8 @@ public class RegisterFragment extends TimelineFragment {
                         }
                     });
                 } else {
-                    mProgressBar.setVisibility(View.GONE);
                     // TODO: Notify on un-matching passwords
+                    mProgressBar.setVisibility(View.GONE);
                 }
                 break;
             }

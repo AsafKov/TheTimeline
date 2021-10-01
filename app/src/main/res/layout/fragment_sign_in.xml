@@ -5,6 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/app_headline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragment_sign_in_headline_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_sign_in_headline_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.275" />
+
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/fragment_sign_in_headline"
         android:layout_width="wrap_content"
@@ -12,7 +29,7 @@
         android:fontFamily="sans-serif-black"
         android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,13 +41,13 @@
         style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/fragment_sign_in_email"
+        android:hint="@string/auth_activity_email"
         android:minWidth="240dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/fragment_sign_in_headline"
         app:layout_constraintStart_toStartOf="@+id/fragment_sign_in_headline"
         app:layout_constraintTop_toBottomOf="@+id/fragment_sign_in_headline"
-        app:layout_constraintVertical_bias="0.175">
+        app:layout_constraintVertical_bias="0.25">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fragment_sign_in_email_input"
@@ -38,7 +55,6 @@
             android:layout_height="match_parent"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/fragment_sign_in_password"
+        android:hint="@string/auth_activity_password"
         android:minWidth="240dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/fragment_sign_in_headline"
@@ -63,7 +79,6 @@
             android:layout_height="match_parent"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,12 +94,15 @@
         app:layout_constraintTop_toBottomOf="@id/fragment_sign_in_password_frame"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_sign_in_navigate_to_register"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fragment_sign_in_navigate_to_register"
-        android:textSize="14sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/fragment_sign_in_email_frame"
         app:layout_constraintStart_toStartOf="@id/fragment_sign_in_email_frame"
@@ -101,5 +119,21 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_sign_in_email_frame"
         app:layout_constraintTop_toBottomOf="@+id/fragment_sign_in_navigate_to_register"
         app:layout_constraintVertical_bias="0.25" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/fragment_sign_in_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        app:indicatorColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_sign_in_navigate_to_register"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_sign_in_password_frame"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fragment_sign_in_with_email"
+        app:layout_constraintTop_toTopOf="@+id/fragment_sign_in_with_email"
+        app:trackColor="@color/design_default_color_primary"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

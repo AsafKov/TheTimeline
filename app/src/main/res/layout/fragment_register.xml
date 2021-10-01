@@ -5,31 +5,147 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/app_headline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragment_register_headline_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_register_headline_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.275" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_register_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_register_date_picker"
+        android:id="@+id/fragment_register_email_frame"
         style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/fragment_register_date_of_birth"
-        android:minWidth="200dp"
-        app:endIconDrawable="@drawable/ic_date_picker"
-        app:endIconMode="custom"
-        app:endIconTint="#000000"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true"
+        android:hint="@string/auth_activity_email"
+        android:minWidth="240dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13">
+        app:layout_constraintEnd_toEndOf="@+id/fragment_register_headline"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_headline"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_headline"
+        app:layout_constraintVertical_bias="0.25">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fragment_register_date_of_birth"
+            android:id="@+id/fragment_register_email_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"
-            android:clickable="false"/>
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fragment_register_password_frame"
+        style="@style/CustomEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/auth_activity_password"
+        android:minWidth="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_register_headline"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_headline"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_email_frame"
+        app:layout_constraintVertical_bias="0.0"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fragment_register_password_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fragment_register_confirm_password_frame"
+        style="@style/CustomEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/fragment_register_confirm_password"
+        android:minWidth="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_register_headline"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_headline"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_password_frame"
+        app:layout_constraintVertical_bias="0.0"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fragment_register_confirm_password_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_register_create_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/fragment_register_create_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/fragment_register_email_frame"
+        app:layout_constraintStart_toStartOf="@id/fragment_register_email_frame"
+        app:layout_constraintTop_toBottomOf="@id/fragment_register_confirm_password_frame"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_register_navigate_to_sign_in"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_register_navigate_to_sign_in"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/fragment_register_email_frame"
+        app:layout_constraintStart_toStartOf="@id/fragment_register_email_frame"
+        app:layout_constraintTop_toBottomOf="@id/fragment_register_create_user"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/fragment_register_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_register_create_user"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_register_confirm_password_frame"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_create_user"
+        app:layout_constraintTop_toTopOf="@+id/fragment_register_create_user"
+        app:trackColor="@color/design_default_color_primary"
+        tools:visibility="visible" />/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

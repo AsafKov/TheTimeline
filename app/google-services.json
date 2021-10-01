@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1060242741573",
+    "project_id": "thetimeline-1d460",
+    "storage_bucket": "thetimeline-1d460.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060242741573:android:b5d597fc08e680d640c62c",
+        "android_client_info": {
+          "package_name": "com.asafk.thetimeline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060242741573-iuc4db52mnqm9l7f6juuqqe0kb00dp1o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asafk.thetimeline",
+            "certificate_hash": "41b15b49c19cf348f10cd1538a58eccb3e2ce4b9"
+          }
+        },
+        {
+          "client_id": "1060242741573-tq9n1r0hk1tlee3mu938keav4ebk8mbn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC2wg7df0Ul-RALzOA49rpcHb9Mq9Yoz0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060242741573-tq9n1r0hk1tlee3mu938keav4ebk8mbn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -76,11 +76,17 @@ public class RegisterFragment extends TimelineFragment {
                 if(inputValidation()){
                     FirebaseUtils.registerWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(),
                             isSuccessful -> {
-                        NavDirections action = RegisterFragmentDirections.actionRegisterFragmentToNewUserFragment();
-                        mNavController.navigate(action);
+                        if(isSuccessful){
+                            NavDirections action = RegisterFragmentDirections.actionRegisterFragmentToNewUserFragment();
+                            mNavController.navigate(action);
+                        } else {
+                           //TODO: handle failure
+                           mProgressBar.setVisibility(View.GONE);
+                        }
                     });
                 } else {
-                  // TODO: Notify on un-matching passwords
+                    mProgressBar.setVisibility(View.GONE);
+                    // TODO: Notify on un-matching passwords
                 }
                 break;
             }

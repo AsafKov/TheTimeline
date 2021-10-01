@@ -35,7 +35,7 @@ public class NewUserFragment extends TimelineFragment{
     public static final String TAG = NewUserFragment.class.getSimpleName();
 
     private TextInputEditText mDate;
-    private AutoCompleteTextView mCountryInput;
+    private AutoCompleteTextView mCountryInput, mGenderInput, mOrientationInput, mFaithInput;
 
     private NavController mNavController;
 
@@ -62,18 +62,43 @@ public class NewUserFragment extends TimelineFragment{
     @Override
     void initViews(@NonNull View layout) {
         mDate = layout.findViewById(R.id.fragment_new_user_date);
-        MaterialButton submit = layout.findViewById(R.id.fragment_new_user_submit);
-        MaterialButton datePicker = layout.findViewById(R.id.fragment_new_user_date_picker);
+        mCountryInput = layout.findViewById(R.id.fragment_new_user_country_input);
+        mGenderInput = layout.findViewById(R.id.fragment_new_user_gender_input);
+        mOrientationInput = layout.findViewById(R.id.fragment_new_user_sexuality_input);
+        mFaithInput = layout.findViewById(R.id.fragment_new_user_faith_input);
 
-        datePicker.setOnClickListener(this);
+        MaterialButton submit = layout.findViewById(R.id.fragment_new_user_submit);
+        TextInputLayout datePicker = layout.findViewById(R.id.fragment_new_user_date_picker);
+
         submit.setOnClickListener(this);
         mDate.setInputType(InputType.TYPE_NULL);
 
-        mCountryInput = layout.findViewById(R.id.fragment_new_user_country_input);
         mCountryInput.clearFocus();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, listOfCountries());
         mCountryInput.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line,
+                getResources().getStringArray(R.array.fragment_new_user_gender));
+        mGenderInput.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line,
+                getResources().getStringArray(R.array.fragment_new_user_orientation));
+        mOrientationInput.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line,
+                getResources().getStringArray(R.array.fragment_new_user_faith));
+        mFaithInput.setAdapter(adapter);
+
+        datePicker.setEndIconOnClickListener(view -> {
+            MaterialDatePicker<Long> pickerDialog = MaterialDatePicker.Builder.datePicker().
+                    setTitleText(R.string.fragment_new_user_date_picker_title).build();
+            pickerDialog.addOnPositiveButtonClickListener(selection -> {
+                String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date(selection));
+                mDate.setText(date);
+            });
+            pickerDialog.show(getChildFragmentManager(), TAG);
+        });
     }
 
     @Override
@@ -85,14 +110,7 @@ public class NewUserFragment extends TimelineFragment{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fragment_new_user_date_picker: {
-                MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().
-                        setTitleText(R.string.fragment_new_user_date_picker_title).build();
-                datePicker.addOnPositiveButtonClickListener(selection -> {
-                    String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date(selection));
-                    mDate.setText(date);
-                });
-                datePicker.show(getChildFragmentManager(), TAG);
-                break;
+
             }
         }
     }

@@ -22,6 +22,25 @@
     <string name="fragment_new_user_date_picker_hint">Date of birth</string>
     <string name="fragment_new_user_date_picker_title">Select date</string>
     <string name="fragment_new_user_country_hint">Country</string>
+    <string name="fragment_new_user_gender_hint">Gender</string>
+    <string name="fragment_new_user_sexuality_hint">Sexual orientation</string>
+    <string name="fragment_new_user_faith_hint">Faith</string>
     <string name="fragment_new_user_continue">Continue</string>
+    <string-array name="fragment_new_user_gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-binary</item>
+    </string-array>
+    <string-array name="fragment_new_user_orientation">
+        <item>Heterosexual</item>
+        <item>Homosexual</item>
+        <item>Bisexual</item>
+        <item>Asexual</item>
+    </string-array>
+    <string-array name="fragment_new_user_faith">
+        <item>Non-religious</item>
+        <item>Religious</item>
+        <item>Atheist</item>
+    </string-array>
 
 </resources>

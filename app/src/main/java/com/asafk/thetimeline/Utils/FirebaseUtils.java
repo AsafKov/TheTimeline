@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import com.asafk.thetimeline.Conventions.StorageConventions;
 import com.asafk.thetimeline.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +39,6 @@ public class FirebaseUtils {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
-               FirebaseUser user = task.getResult().getUser();
                listener.onAuthenticationComplete(true);
            } else {
                Log.d(TAG, "signInWithEmailAndPassword: Register failed with exception: "
@@ -54,7 +52,6 @@ public class FirebaseUtils {
                                                   @NonNull FirebaseAuthenticationListener listener){
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
            if(task.isSuccessful()){
-               FirebaseUser user = task.getResult().getUser();
                listener.onAuthenticationComplete(true);
            } else {
                Log.d(TAG, "signInWithEmailAndPassword: sign in failed with exception: "

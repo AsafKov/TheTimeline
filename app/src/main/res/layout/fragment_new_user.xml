@@ -113,7 +113,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:completionThreshold="3"
-            android:dropDownHeight="200dp"
             android:padding="16dp"
             android:singleLine="true"
             android:textSize="16sp"
@@ -188,6 +187,7 @@
             android:id="@+id/fragment_new_user_faith_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:dropDownHeight="140dp"
             android:inputType="none"
             android:singleLine="true"
             tools:ignore="SpeakableTextPresentCheck" />

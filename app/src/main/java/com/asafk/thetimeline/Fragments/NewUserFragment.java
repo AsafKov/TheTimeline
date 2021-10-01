@@ -5,27 +5,25 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.asafk.thetimeline.Model.User;
 import com.asafk.thetimeline.R;
+import com.asafk.thetimeline.Utils.FirebaseUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
@@ -35,6 +33,8 @@ public class NewUserFragment extends TimelineFragment{
     public static final String TAG = NewUserFragment.class.getSimpleName();
 
     private TextInputEditText mDate;
+    private long mSelectedDate;
+
     private AutoCompleteTextView mCountryInput, mGenderInput, mOrientationInput, mFaithInput;
 
     private NavController mNavController;
@@ -62,6 +62,8 @@ public class NewUserFragment extends TimelineFragment{
     @Override
     void initViews(@NonNull View layout) {
         mDate = layout.findViewById(R.id.fragment_new_user_date);
+        mDate.setInputType(InputType.TYPE_NULL);
+
         mCountryInput = layout.findViewById(R.id.fragment_new_user_country_input);
         mGenderInput = layout.findViewById(R.id.fragment_new_user_gender_input);
         mOrientationInput = layout.findViewById(R.id.fragment_new_user_sexuality_input);
@@ -71,7 +73,6 @@ public class NewUserFragment extends TimelineFragment{
         TextInputLayout datePicker = layout.findViewById(R.id.fragment_new_user_date_picker);
 
         submit.setOnClickListener(this);
-        mDate.setInputType(InputType.TYPE_NULL);
 
         mCountryInput.clearFocus();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
@@ -91,9 +92,12 @@ public class NewUserFragment extends TimelineFragment{
         mFaithInput.setAdapter(adapter);
 
         datePicker.setEndIconOnClickListener(view -> {
-            MaterialDatePicker<Long> pickerDialog = MaterialDatePicker.Builder.datePicker().
-                    setTitleText(R.string.fragment_new_user_date_picker_title).build();
+            MaterialDatePicker<Long> pickerDialog = MaterialDatePicker.Builder.datePicker()
+                    .setTitleText(R.string.fragment_new_user_date_picker_title)
+                    .build();
+
             pickerDialog.addOnPositiveButtonClickListener(selection -> {
+                mSelectedDate = selection;
                 String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date(selection));
                 mDate.setText(date);
             });
@@ -109,10 +113,31 @@ public class NewUserFragment extends TimelineFragment{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.fragment_new_user_date_picker: {
+            case R.id.fragment_new_user_submit: {
+                if(isInputValid()){
+                    final String gender = mGenderInput.getText().toString();
+                    final String orientation = mOrientationInput.getText().toString();
+                    final String faith = mFaithInput.getText().toString();
+                    final String country = mCountryInput.getText().toString();
+                    final User user = new User(mSelectedDate, country, User.Gender.fromString(gender),
+                            User.Orientation.fromString(orientation),
+                            User.Faith.fromString(faith));
 
+                    FirebaseUtils.writeUserToDatabase(user, isSuccessful -> {
+                        if(isSuccessful){
+                            NavDirections action = NewUserFragmentDirections.actionNewUserFragmentToSplashFragment();
+                            mNavController.navigate(action);
+                        } else {
+                            //TODO: handle failure
+                        }
+                    });
+                }
             }
         }
+    }
+
+    private boolean isInputValid(){
+        return true;
     }
 
     private ArrayList<String> listOfCountries() {

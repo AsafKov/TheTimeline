@@ -29,7 +29,7 @@
     <string-array name="fragment_new_user_gender">
         <item>Male</item>
         <item>Female</item>
-        <item>Non-binary</item>
+        <item>Nonbinary</item>
     </string-array>
     <string-array name="fragment_new_user_orientation">
         <item>Heterosexual</item>
@@ -38,7 +38,7 @@
         <item>Asexual</item>
     </string-array>
     <string-array name="fragment_new_user_faith">
-        <item>Non-religious</item>
+        <item>Agnostic</item>
         <item>Religious</item>
         <item>Atheist</item>
     </string-array>

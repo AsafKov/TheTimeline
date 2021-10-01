@@ -1,20 +1,21 @@
 {
   "project_info": {
-    "project_number": "93604048069",
-    "project_id": "thetimeline-ee983",
-    "storage_bucket": "thetimeline-ee983.appspot.com"
+    "project_number": "968378753178",
+    "firebase_url": "https://thetimeline-327606-default-rtdb.firebaseio.com",
+    "project_id": "thetimeline-327606",
+    "storage_bucket": "thetimeline-327606.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:93604048069:android:5684b3bbce97047fc354ac",
+        "mobilesdk_app_id": "1:968378753178:android:133738b63f96e5a6483f23",
         "android_client_info": {
           "package_name": "com.asafk.thetimeline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "93604048069-s9o96j8238g62o8v6eqc7guhh4rhe8c7.apps.googleusercontent.com",
+          "client_id": "968378753178-aqv8oo1pbo2i4ir0h1sg7ohpr90pgpbg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.asafk.thetimeline",
@@ -22,20 +23,20 @@
           }
         },
         {
-          "client_id": "93604048069-neu9l8oq3g3invs0hqlaoglb16q68p6o.apps.googleusercontent.com",
+          "client_id": "968378753178-5upgv34v29k40oe1aop00oc6n4ibtjta.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCqJN-AXqmNHwVFYeWlFrilObxLGwm9xwg"
+          "current_key": "AIzaSyDdoe0jRntjK5K58uwZ5FN_kwbWbZEVOHw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "93604048069-neu9l8oq3g3invs0hqlaoglb16q68p6o.apps.googleusercontent.com",
+              "client_id": "968378753178-5upgv34v29k40oe1aop00oc6n4ibtjta.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

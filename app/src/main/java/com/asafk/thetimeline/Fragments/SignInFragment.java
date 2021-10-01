@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,11 +19,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
-public class SignInFragment extends TimelineFragment{
+public class SignInFragment extends TimelineFragment {
 
     public static final String TAG = SignInFragment.class.getSimpleName();
 
     private TextInputEditText mEmailInput, mPasswordInput;
+    private ProgressBar mProgressBar;
 
     private NavController mNavController;
 
@@ -49,6 +51,10 @@ public class SignInFragment extends TimelineFragment{
 
     @Override
     void initViews(@NonNull View layout) {
+        mEmailInput = layout.findViewById(R.id.fragment_sign_in_email_input);
+        mPasswordInput = layout.findViewById(R.id.fragment_sign_in_password_input);
+        mProgressBar = layout.findViewById(R.id.fragment_sign_in_progressbar);
+
         MaterialButton signInWithEmail = layout.findViewById(R.id.fragment_sign_in_with_email);
         SignInButton signInWithGmail = layout.findViewById(R.id.fragment_sign_in_gmail);
         MaterialTextView navigateToRegisterFragment = layout.findViewById(R.id.fragment_sign_in_navigate_to_register);
@@ -56,9 +62,6 @@ public class SignInFragment extends TimelineFragment{
         signInWithEmail.setOnClickListener(this);
         signInWithGmail.setOnClickListener(this);
         navigateToRegisterFragment.setOnClickListener(this);
-
-        mEmailInput = layout.findViewById(R.id.fragment_sign_in_email_input);
-        mPasswordInput = layout.findViewById(R.id.fragment_sign_in_password_input);
     }
 
     @Override
@@ -68,21 +71,36 @@ public class SignInFragment extends TimelineFragment{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fragment_sign_in_with_email: {
-                //TODO: remove
-                if(mEmailInput.getText().toString().equals("admin")){
-                    TimelineFragment.hideKeyboard(requireActivity());
-                    NavDirections action = SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
-                    mNavController.navigate(action);
-                } else {
-                    FirebaseUtils.signInWithEmailAndPassword(mEmailInput.getText().toString(),
-                            mPasswordInput.getText().toString(), isSuccessful -> {
-                                TimelineFragment.hideKeyboard(requireActivity());
-                                NavDirections action = SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
-                                mNavController.navigate(action);
-                            });
+                mProgressBar.setVisibility(View.VISIBLE);
+                final String email = mEmailInput.getText().toString();
+                final String password = mPasswordInput.getText().toString();
+                if (!isInputValid(email, password)) {
+                    mProgressBar.setVisibility(View.GONE);
+                    return;
                 }
+                FirebaseUtils.signInWithEmailAndPassword(email, password, isSuccessful -> {
+                    TimelineFragment.hideKeyboard(requireActivity());
+                    if (!isSuccessful) {
+                        mProgressBar.setVisibility(View.GONE);
+                        // TODO: Handle failure
+                        return;
+                    }
+                    FirebaseUtils.isRegisterProcessComplete(new FirebaseUtils.RegisterProcessCompleteListener() {
+                        @Override
+                        public void isRegisterComplete(boolean isComplete) {
+                            NavDirections action = isComplete? SignInFragmentDirections.actionSignInFragmentToSplashFragment()
+                                    : SignInFragmentDirections.actionSignInFragmentToNewUserFragment();
+                            mNavController.navigate(action);
+                        }
+
+                        @Override
+                        public void onDatabaseError(int errorCode) {
+                            //TODO: Handle database error
+                        }
+                    });
+                });
                 break;
             }
 
@@ -98,5 +116,19 @@ public class SignInFragment extends TimelineFragment{
                 mNavController.navigate(action);
             }
         }
+    }
+
+    private boolean isInputValid(final String email, final String password) {
+        if (email.isEmpty()) {
+            mEmailInput.requestFocus();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            mPasswordInput.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 }

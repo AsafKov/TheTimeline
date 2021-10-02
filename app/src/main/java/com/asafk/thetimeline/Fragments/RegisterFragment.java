@@ -50,7 +50,7 @@ public class RegisterFragment extends TimelineFragment {
     @Override
     void initViews(@NonNull View layout) {
         mEmail = layout.findViewById(R.id.fragment_register_email_input);
-        mPassword = layout.findViewById(R.id.fragment_register_confirm_password_input);
+        mPassword = layout.findViewById(R.id.fragment_register_password_input);
         mPasswordConfirmation = layout.findViewById(R.id.fragment_register_confirm_password_input);
         mProgressBar = layout.findViewById(R.id.fragment_register_progressbar);
 
@@ -98,6 +98,16 @@ public class RegisterFragment extends TimelineFragment {
     }
 
     private boolean inputValidation(){
+        if(mEmail.getText().toString().isEmpty()){
+            mEmail.requestFocus();
+            return false;
+        }
+
+        if(mPassword.getText().toString().isEmpty()){
+            mPassword.requestFocus();
+            return false;
+        }
+
         return mPassword.getText().toString().equals(mPasswordConfirmation.getText().toString());
     }
 }
